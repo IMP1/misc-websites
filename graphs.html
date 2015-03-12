@@ -1,0 +1,272 @@
+<!doctype HTML>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Charts n Stuff</title>
+        <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+        <style type="text/css">
+            html, body {
+                margin: 0;
+                padding: 0;
+            }
+            section, header, footer {
+                width: 960px;
+                margin: auto;
+            }
+            h1 {
+                text-align: center;
+            }
+            footer {
+                text-align: center;
+                margin-top: 5rem;
+                margin-bottom: 2rem;
+            }
+            svg {
+                display: block;
+                margin: auto;
+                border: 1px solid #888;
+            }
+            .mirrored {
+                display: inline-block;
+                -moz-transform: scale(-1, 1);
+                -webkit-transform: scale(-1, 1);
+                -o-transform: scale(-1, 1);
+                -ms-transform: scale(-1, 1);
+                transform: scale(-1, 1);
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Charts 'n' Stuff</h1>
+        </header>
+        <main>
+            <section>
+                <h2>About</h2>
+                <p>This website is a test to see how difficult these sorts of graphs are to create.
+                The inspiration was a <a href="http://www.findtheconversation.com/concept-map/#">Concept Map on 'The Conversation'</a> that I was linked to.
+                As it turns out, with the help of <a href="http://www.d3js.org/">the <strong>D3</strong> library</a>, this sort of thing is pretty easy. 
+                Check the source code of this page to see. 
+                I put the css and javascript all in this page, which is generally not good practice, but I wanted everything all visible in one place. 
+                No hidden, secret, this-is-<em>actually</em>-how-everything-is-working files anywhere. 
+                Everything you need, except for D3's witchcraft, the source of which is <a href="https://github.com/mbostock/d3">available on Github</a>, is in the source of this page.
+            </section>
+            <svg id="chart"></svg>
+            <section>
+                <h2>Todo</h2>
+                <ol>
+                    <li>Prettify
+                        <ol>
+                            <li>Curve lines</li>
+                        </ol>
+                    </li>
+                    <li>Functionality
+                        <ol>
+                            <li>Create links</li>
+                        </ol>
+                    </li>
+                </ol>
+            </section>
+        </main>
+        <footer>
+            <span class="mirrored">&copy;</span> Copyleft 2015
+        </footer>
+        <script type="text/javascript">
+            // Constants
+            var CHART_WIDTH = 1200;
+            var CHART_HEIGHT = 600;
+            
+            var RECTANGLE_WIDTH = 256;
+            var RECTANGLE_HEIGHT = 32;
+            var RECTANGLE_SPACING = 4;
+            
+            var HOVER_COLOUR = "#66f";
+            
+            // Data
+            var outerData = ["Lori Smith", "Bonnie Campbell", "Scott Reed", "Andrea Evans", "Kathleen Peterson", "Joshua Harris", 
+                            "Joseph Sanders", "Heather Washington", "Aaron Diaz", "Diane Wilson", "Shirley Hill", "Ronald Young", 
+                            "Nicole Robinson", "Terry Scott", "Daniel Gonzalez", "Pamela Davis", "Paula Lopez", "Christina Mitchell"];
+            var innerData = ["Engineering", "Programming", "Maths", "Psychology", "Sociology", "Informatics", "Linguistics", "Anthropology", 
+                             "History", "Socio-Economics", "Geology", "Archaelogy", "Philosophy", "Physics", "Chemistry", "Biology"];
+            var links = [
+                // Each pair is [a, b], where a is the id for an innerData, and b is the id for an outerData.
+                [0, 1], [0, 2],
+                [1, 2], [1, 5], [1, 14],
+                [2, 3], [2, 4], [2, 5],
+                [3, 0], [3, 3], [3, 16],
+                [4, 5], [4, 9],
+                [5, 15], [5, 13],
+                [6, 17], [6, 12],
+                [7, 5], [7, 7],
+                [8, 2], [8, 8],
+                [9, 1], [9, 10],
+                [10, 17], [10, 6], [10, 9],
+                [11, 12],
+                [12, 9], [12, 16],
+                [13, 10], [13, 6],
+                [14, 11],
+                [15, 12], [15, 8],
+            ];
+                
+                
+                
+            // Creation of chart.
+            var chart = d3.select("#chart")
+                          .attr("width", CHART_WIDTH)
+                          .attr("height", CHART_HEIGHT);
+            
+            function getCirclePosition(i) {
+                var r = (i+0.5) * (2 * Math.PI / outerData.length);
+                r -= Math.PI;
+                r *= theta;
+                if (r < 0) {
+                    r -= Math.PI * (theta / 2);
+                } else {
+                    r += Math.PI * (theta / 2);
+                }
+                r += 3 * Math.PI / 2;
+                r = -r;
+                var circleX = 300 * Math.cos(r);
+                var circleY = 300 * Math.sin(r);
+                return { x: circleX + CHART_WIDTH / 2, y: circleY + CHART_HEIGHT / 2 };
+            }
+                
+            function hoveringOverInner(index) {
+                chart.selectAll("rect.inner")[0][index].style.fill = HOVER_COLOUR;
+                for (var i = 0; i < links.length; i ++) {
+                    if (links[i][0] == index) {
+                        // Colour line
+                        chart.selectAll("path")[0][i].style.stroke = HOVER_COLOUR;
+                        // Colour name
+                        chart.selectAll("circle.outer")[0][links[i][1]].style.fill = HOVER_COLOUR;
+                        // Colour name text
+                        chart.selectAll("text.outer")[0][links[i][1]].style.stroke = HOVER_COLOUR;
+                    }
+                }
+            }
+                
+            function hoveringOverOuter(index) {
+                chart.selectAll("circle.outer")[0][index].style.fill = HOVER_COLOUR;
+                chart.selectAll("text.outer")[0][index].style.stroke = HOVER_COLOUR;
+                for (var i = 0; i < links.length; i ++) {
+                    if (links[i][1] == index) {
+                        // Colour line
+                        chart.selectAll("path")[0][i].style.stroke = HOVER_COLOUR;
+                        // Colour name
+                        chart.selectAll("rect.inner")[0][links[i][0]].style.fill = HOVER_COLOUR;
+                    }
+                }
+            }
+            
+            function notHovering() {
+                chart.selectAll("rect").style("fill", "white");
+                chart.selectAll("circle").style("fill", "black");
+                chart.selectAll("path").style("stroke", "black");
+                chart.selectAll("text").style("stroke", "black");
+            }
+                
+            // Adding inner data.
+            chart.selectAll("rect").data(innerData).enter()
+                .append("rect")
+                    .attr("class", "inner")
+                    .style("stroke", "black")
+                    .style("fill", "white")
+                    .attr("x", (CHART_WIDTH - RECTANGLE_WIDTH) / 2)
+                    .attr("y", function(d, i) { return (i + 0.5) * (RECTANGLE_HEIGHT + RECTANGLE_SPACING); })
+                    .attr("width", RECTANGLE_WIDTH)
+                    .attr("height", RECTANGLE_HEIGHT)
+                    .on('mouseover', function(d, i) {
+                        hoveringOverInner(i);
+                    })
+                    .on('mouseout', function(d, i) {
+                        notHovering();
+                    });
+            chart.selectAll("subjects").data(innerData).enter()
+                .append("text")
+                    .attr("class", "inner")
+                    .text(function(d) { return d; })
+                    .attr("stroke", "black")
+                    .attr("x", (CHART_WIDTH - RECTANGLE_WIDTH) / 2 + 8)
+                    .attr("y", function(d, i) { return (i + 0.5) * (RECTANGLE_HEIGHT + RECTANGLE_SPACING) + RECTANGLE_HEIGHT * 0.66; })
+                    .attr("width", RECTANGLE_WIDTH)
+                    .attr("height", RECTANGLE_HEIGHT)
+                    .on('mouseover', function(d, i) {
+                        hoveringOverInner(i);
+                    })
+                    .on('mouseout', function(d, i) {
+                        notHovering();
+                    });
+            
+            var theta = 1/2; // Proportion of a semi-circle containing the circles.
+            // Adding outer data.
+            chart.selectAll("circle").data(outerData).enter()
+                .append("circle")
+                    .attr("class", "outer")
+                    .style("fill", "black")
+                    .attr("cx", function(d, i) { return getCirclePosition(i).x; })
+                    .attr("cy", function(d, i) { return getCirclePosition(i).y; })
+                    .attr("r", 4)
+                    .on('mouseover', function(d, i) {
+                        hoveringOverOuter(i);
+                    })
+                    .on('mouseout', function(d, i) {
+                        notHovering();
+                    });
+            chart.selectAll("names").data(outerData).enter()
+                .append("text")
+                    .attr("class", "outer")
+                    .text(function(d) { return d; })
+                    .attr("stroke", "black")
+                    .attr("x", function(d, i) { return getCirclePosition(i).x; })
+                    .attr("y", function(d, i) { return getCirclePosition(i).y + 4; })
+                    .attr("width", 128)
+                    .attr("height", 24)
+                    .attr("transform", function(d, i) {
+                        var pos = getCirclePosition(i);
+                        var r = Math.atan2(CHART_HEIGHT / 2 - pos.y, CHART_WIDTH / 2 - pos.x);
+                        r = r * 180 / Math.PI;
+                        if (i < outerData.length / 2) {
+                            return "translate(-8, 0)";
+                        } else {
+                            return "translate(8, 0)";
+                        }
+                    })
+                    .attr("text-anchor", function(d, i) {
+                        if (i < outerData.length / 2) {
+                            return "end";
+                        } else {
+                            return "start";
+                        }
+                    })
+                    .on('mouseover', function(d, i) {
+                        hoveringOverOuter(i);
+                    })
+                    .on('mouseout', function(d, i) {
+                        notHovering();
+                    });
+                
+            // Adding lines.
+            chart.selectAll("path").data(links).enter()
+                .append("path")
+                    .style("fill", "none")
+                    .style("stroke", "black")
+                    .attr("d", function(d) {
+                        var rect = chart.selectAll("rect")[0][d[0]];
+                        var circle = getCirclePosition(d[1]);
+//                        alert(rect.height);
+                        var ox = rect.x.baseVal.value;
+                        var oy = rect.y.baseVal.value + (rect.height.baseVal.value / 2);
+                        if (d[1] >= outerData.length / 2) {
+                            ox += rect.width.baseVal.value;
+                        }
+                        var tx = circle.x;
+                        var ty = circle.y;
+            
+                        var M = "M" + ox + "," + oy;
+                        var Q = ""
+                        var T = " T" + tx + "," + ty
+                        return M + Q + T; 
+                    });
+        </script>
+    </body>
+</html>
