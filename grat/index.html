@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Grat Revision Notes</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+		<h1>GRAT Notes</h1>
+		<section>
+			<h2>Critical Pairs</h2>
+			<p>
+				Critical Pairs' start graphs are the union of the left hand side of two rules.
+				<br>
+				The two rules are also not parallelly independent.
+				<br>
+				The intersection of the left hand side of the rules is a subgraph of the intermediate graph for the rule.
+			</p>
+			<p>
+				Critical Pairs are joinable if a graph 'U' can be reached from 'R1' and 'R2' using any of the rules.
+			</p>
+			<p>
+				Critical Pairs are <strong>STRONGLY</strong> joinable if graph 'U' contains the same nodes that have persisted via both journeys.
+			</p>
+		</section>
+		<section>
+			<h2>Termination</h2>
+			<p>
+				A Graph Transformation System (Graph + rules) terminates if the rules can only be applied a finite amount.
+				<br>
+				Proving termination requires explanation. eg. show that nodes are removes and so will run out.
+			</p>
+			<p>
+				A Graph Transformation System is non-terminating if the rules can be applied infinitely.
+				<br>
+				Proving requires one example of an infinte loop.
+			</p>
+		</section>
+		<section>
+			<h2>Confluence</h2>
+			<p>
+				Confluence is where the graphs R1 and R2 gotten by any number of applications of the rules, 
+				can in turn get to the same graph U, from any number of applications of the rules.
+			</p>
+			<p>
+				Strong confluence is where one application of r1 and r2 leads to an isomorphic graph.
+			</p>
+			<p>
+			
+			</p>
+			<img alt="Different Types of Graph Confluence" src="conf.png">
+		</section>
+		<section>
+			<h2>Questions</h2>
+			<ul>
+				<li><pre>
+Is it terminating because it's possible for it to terminate, or is it non-terminating because it's possible for it to go on forever?
+	
+	Eg:
+		r1 : {o} -> { }
+		r2 : {o} -> {o}
+		
+	(r2 can be applied forever so non-terminating? Or r1 can be applied so terminating?)
+				</pre></li>
+			</ul>
+	</body>
+</html>
