@@ -1,4 +1,9 @@
 @import url("http://fonts.googleapis.com/css?family=Poiret+One");
+@import url("http://fonts.googleapis.com/css?family=Ubuntu");
+
+* {
+	box-sizing: border-box;
+}
 
 html, body{
 	margin: 0;
@@ -6,18 +11,58 @@ html, body{
 }
 
 body {
-	display: block;
-	width: 960px;
-	margin: auto;
-	font-family: 'Poiret One', cursive;
-	font-weight: 500;
 	background-color: #F0F8FF;
+	max-width: 960px;
+	margin: auto;
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 0.9rem;
+}
+
+sub, sup {
+	font-size: 0.8em;
+}
+sup { 
+	position: relative;
+	top: 0.2em;
+}
+sub { 
+	position: relative;
+	bottom: 0.2em;
+}
+
+svg text {
+	font-family: 'Poiret One', cursive;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Poiret One', cursive;
+	margin-bottom: 1em;
 }
 
 h1 {
 	text-align: center;
 }
 
+p {
+	margin-top: 0;
+	margin-bottom: 1em;
+}
+
 section {
 	margin-bottom: 3rem;
+}
+
+
+/* Technical Term */
+.tech-term {
+	color: #2aa;
+	font-weight: bold;
+}
+
+.graph-name {
+	font-weight: bold;
+}
+
+.rule-name {
+	
 }
