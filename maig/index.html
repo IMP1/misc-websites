@@ -28,19 +28,6 @@
 				Rules can have a priority ordering (e.g. b1 &#8826; b2 means b1 <span class="tech-term">inhibits</span> b2 (in other words b1 will have priority over b2))
 			</p>
 			<p>
-				Rules are a set of actions that decide the behaviour of the agent
-				<br>
-				Several rules can fire simultaneously (e.g. avoid from wall while moving towards target)
-				<br>
-				Rules are defined defined as (c, a)
-				<ul>
-					<li><strong>c</strong>: condition for the rule to fire</li>
-					<li><strong>a</strong>: the action taken when c becomes true</li>
-				</ul>
-				Rule will fire when the environment is in state s &isin; S and c &sube; see(s) (The agent sees state that triggers condition) <br>
-				Rules can have a priority ordering (e.g. b1 &#8826; b2 means b1 <span class="tech-term">inhibits</span> b2 (in other words b1 will have priority over b2))
-			</p>
-			<p>
 			<strong>(Positive)</strong> Reactive agents are simple and fast <br>
 			<strong>(Positive)</strong> If the rules are well designed an agent will have near optimal performance (see Mars rover example)
 			</p>
