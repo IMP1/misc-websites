@@ -8,23 +8,69 @@
 	<body>
 		<h1>GRAT Notes</h1>
 		<section>
-			<h2>Critical Pairs</h2>
+			<h2>Independence</h2>
+			<h3>Sequential Independence</h3>
 			<p>
-				A <span class="tech-term">critical pair</span> is a pair of rules applied to a graph.
-				A critical pair's start graph is the union of the left hand side of two rules.
-				<br>
-				The two rules are also not parallelly independent.
-				<br>
-				The intersection of the left hand side of the rules is a subgraph of the intermediate graph for the rule.
+				If you have a derivation
+				<span class="graph-name">G</span>
+				<span class="rule-name">&rArr;<sub>r1</sub></span>
+				<span class="graph-name">H</span>
+				<span class="rule-name">&rArr;<sub>r2</sub></span>
+				<span class="graph-name">M</span>
+				, it is <span class="tech-term">sequentially independent</span> if the steps can be swapped, that is there is a derivation
+				<span class="graph-name">G</span>
+				<span class="rule-name">&rArr;<sub>r2</sub></span>
+				<span class="graph-name bar">H</span>
+				<span class="rule-name">&rArr;<sub>r1</sub></span>
+				<span class="graph-name">M</span>.
 			</p>
 			<p>
-				If we say the the graph obtained by using <span class="rule-name">r<sub>1</sub></span> is <span class="graph-name">R1</span>, 
-				and the graph obtained by using <span class="rule-name">r<sub>2</sub></span> is <span class="graph-name">R2</span>,
-				a critical pair is <span class="tech-term">joinable</span> if a graph, <span class="graph-name">U</span>,
-				can be reached from <span class="graph-name">R1</span> and <span class="graph-name">R2</span> using any of the rules any number of times.
+				If rules are sequentially independent, and <span class="graph-name">R<sub>1</sub></span> is the right-hand side of rule 1,
+				<span class="graph-name">L<sub>2</sub></span> is the left-hand side of rule 2, and
+				<span class="graph-name">K<sub>x</sub></span> is the interface of rule x, then 
+				<span class="graph-name">R<sub>1</sub></span> &cap; <span class="graph-name">L<sub>2</sub></span> &sube;
+				<span class="graph-name">K<sub>1</sub></span> &cap; <span class="graph-name">K<sub>2</sub></span>
+				must be the case.
+			</p>
+			<h3>Parallel Independence</h3>
+			<p>
+				If you have the derivations
+				<span class="graph-name">H<sub>1</sub></span>
+				<span class="rule-name">&lArr;<sub>r1</sub></span>
+				<span class="graph-name">G</span>
+				<span class="rule-name">&rArr;<sub>r2</sub></span>
+				<span class="graph-name">H<sub>2</sub></span>
+				, it is <span class="tech-term">parallelly independent</span> if the two derived graphs can, 
+				after applying the other rule, reach the same graph, that is, there are the derivations
+				<span class="graph-name">H<sub>1</sub></span>
+				<span class="rule-name">&rArr;<sub>r2</sub></span>
+				<span class="graph-name">M</span>
+				<span class="rule-name">&lArr;<sub>r1</sub></span>
+				<span class="graph-name">H<sub>2</sub></span>.
 			</p>
 			<p>
-				Critical Pairs are <span class="tech-term">strongly joinable</span> if <span class="graph-name">U</span> contains the same nodes that have persisted (not been removed) via <em>both</em> journeys.
+				If rules are parallely independent, and <span class="graph-name">L<sub>x</sub></span> is the left-hand side of rule x, 
+				and <span class="graph-name">K<sub>y</sub></span> is the interface of rule y, then 
+				<span class="graph-name">L<sub>1</sub></span> &cap; <span class="graph-name">L<sub>2</sub></span> &sube;
+				<span class="graph-name">K<sub>1</sub></span> &cap; <span class="graph-name">K<sub>2</sub></span>
+				must be the case.
+			</p>
+			<h3>Notes</h3>
+			<p>
+				Wherever there is sequential independence, there is parallel independence.
+				<br>
+				<span class="graph-name">H<sub>1</sub></span>
+				<span class="rule-name">&lArr;<sub>r1</sub></span>
+				<span class="graph-name">G</span>
+				<span class="rule-name">&rArr;<sub>r2</sub></span>
+				<span class="graph-name">H<sub>2</sub></span>
+				is parallely independent <em>if and only if</em>
+				<span class="graph-name">H<sub>1</sub></span>
+				<span class="rule-name">&rArr;<sub>r1<sup>-1</sup></sub></span>
+				<span class="graph-name">G</span>
+				<span class="rule-name">&rArr;<sub>r2</sub></span>
+				<span class="graph-name">H<sub>2</sub></span>
+				is sequentially independent.
 			</p>
 		</section>
 		<section>
@@ -32,7 +78,7 @@
 			<p>
 				A Graph Transformation System (Graph + rules) is <span class="tech-term">terminating</span> if the rules can only be applied a finite amount.
 				<br>
-				Proving termination requires explanation. Eg. show that nodes are removes and so will run out.
+				Proving termination requires explanation. Eg. show that nodes are removed and so will run out.
 			</p>
 			<p>
 				A Graph Transformation System is <span class="tech-term">non-terminating</span> if the rules can be applied infinitely.
@@ -47,12 +93,12 @@
 				can in turn get to the same graph <span class="graph-name">U</span>, from any number of applications of the rules.
 			</p>
 			<p>
-				<span class="tech-term">Strong confluence</span> is where one application of <span title="rule 1" class="rule-name">r<sub>1</sub></span> and <span title="rule 2" class="rule-name">r<sub>2</sub></span> leads to an isomorphic graph.
-			</p>
-			<p>
 				<span class="tech-term">Local confluence</span> is where after one application of <span title="rule 1" class="rule-name">r<sub>1</sub></span> and <span title="rule 2" class="rule-name">r<sub>2</sub></span>, any number of further applications of rules can reach <span class="graph-name">U</span>.
 			</p>
-			<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="880px" height="320px" xml:space="preserve">
+			<p>
+				<span class="tech-term">Strong confluence</span> is where one application of <span title="rule 1" class="rule-name">r<sub>1</sub></span> and <span title="rule 2" class="rule-name">r<sub>2</sub></span> leads to an isomorphic graph.
+			</p>
+			<svg id="confluence-diagram" width="880px" height="320px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
 				<defs>
 					<marker id="markerArrow" markerWidth="10" markerHeight="20" refx="6" refy="4" orient="auto">
 						<polygon points="0,8 8,4 0,0"/>
@@ -63,40 +109,66 @@
 						<circle cx="200" cy="100" r="4" stroke="black" stroke-width="2" fill="black" />
 						<circle cx="100" cy="200" r="4" stroke="black" stroke-width="2" fill="black" />
 					</g>
+					<g id="confluence-arrows">
+						<path d="M90,10 L10,90" style="stroke: #000; stroke-width: 1px; fill: none; marker-end: url(#markerArrow);" />
+						<path d="M110,10 L190,90" style="stroke: #000; stroke-width: 1px; fill: none; marker-end: url(#markerArrow);" />
+						<path d="M10,110 L90,190" stroke-dasharray="10,5" style="stroke: #000; stroke-width: 1px; fill: none; marker-end: url(#markerArrow);" />
+						<path d="M190,110 L110,190" stroke-dasharray="10,5" style="stroke: #000; stroke-width: 1px; fill: none; marker-end: url(#markerArrow);" />
+					</g>
 				</defs>
 				<g transform="translate(40, 40)">
 					<use xlink:href="#square-graph" />
-					<path d="M90,10 L10,90" style="stroke: #000; stroke-width: 1px; fill: none; marker-end: url(#markerArrow);" />
-					<path d="M110,10 L190,90" style="stroke: #000; stroke-width: 1px; fill: none; marker-end: url(#markerArrow);" />
-					<path d="M10,110 L90,190" stroke-dasharray="10,5" style="stroke: #000; stroke-width: 1px; fill: none; marker-end: url(#markerArrow);" />
-					<text x="40" y="140" font-size="32" text-anchor="start">&cong;</text>
-					<path d="M190,110 L110,190" stroke-dasharray="10,5" style="stroke: #000; stroke-width: 1px; fill: none; marker-end: url(#markerArrow);" />
-					<text x="160" y="140" font-size="32" text-anchor="end">&cong;</text>
-					<text x="100" y="260" font-size="24" font-weight="800" text-anchor="middle">Strong Confluence</text>
-				</g>
-				<g transform="translate(340, 40)">
-					<use xlink:href="#square-graph" />
-					<path d="M90,10 L10,90" style="stroke: #000; stroke-width: 1px; fill: none; marker-end: url(#markerArrow);" />
+					<use xlink:href="#confluence-arrows" />
 					<text x="40" y="70" font-size="48" text-anchor="end">*</text>
-					<path d="M110,10 L190,90" style="stroke: #000; stroke-width: 1px; fill: none; marker-end: url(#markerArrow);" />
 					<text x="160" y="70" font-size="48" text-anchor="start">*</text>
-					<path d="M10,110 L90,190" stroke-dasharray="10,5" style="stroke: #000; stroke-width: 1px; fill: none; marker-end: url(#markerArrow);" />
 					<text x="40" y="160" font-size="48" text-anchor="start">*</text>
-					<path d="M190,110 L110,190" stroke-dasharray="10,5" style="stroke: #000; stroke-width: 1px; fill: none; marker-end: url(#markerArrow);" />
 					<text x="160" y="160" font-size="48" text-anchor="end">*</text>
 					<text x="100" y="260" font-size="24" font-weight="800" text-anchor="middle">Confluence</text>
 				</g>
-				<g transform="translate(640, 40)">
+				<g transform="translate(340, 40)">
 					<use xlink:href="#square-graph" />
-					<path d="M90,10 L10,90" style="stroke: #000; stroke-width: 1px; fill: none; marker-end: url(#markerArrow);" />
-					<path d="M110,10 L190,90" style="stroke: #000; stroke-width: 1px; fill: none; marker-end: url(#markerArrow);" />
-					<path d="M10,110 L90,190" stroke-dasharray="10,5" style="stroke: #000; stroke-width: 1px; fill: none; marker-end: url(#markerArrow);" />
+					<use xlink:href="#confluence-arrows" />
 					<text x="40" y="160" font-size="48" text-anchor="start">*</text>
-					<path d="M190,110 L110,190" stroke-dasharray="10,5" style="stroke: #000; stroke-width: 1px; fill: none; marker-end: url(#markerArrow);" />
 					<text x="160" y="160" font-size="48" text-anchor="end">*</text>
 					<text x="100" y="260" font-size="24" font-weight="800" text-anchor="middle">Local Confluence</text>
 				</g>
+				<g transform="translate(640, 40)">
+					<use xlink:href="#square-graph" />
+					<use xlink:href="#confluence-arrows" />
+					<text x="40" y="140" font-size="32" text-anchor="start">&cong;</text>
+					<text x="160" y="140" font-size="32" text-anchor="end">&cong;</text>
+					<text x="100" y="260" font-size="24" font-weight="800" text-anchor="middle">Strong Confluence</text>
+				</g>
 			</svg>
+		</section>
+		<section>
+			<h2>Critical Pairs</h2>
+			<p>
+				A <span class="tech-term">critical pair</span> is a pair of rules applied to a graph. 
+			</p>
+			<p>
+				For it to be a critical pair:
+				<ol>
+					<li>The start graph must be the union of the left hand side of the two rules.</li>
+					<li>The two rules must not be parallelly independent.</li>
+					<li>If the rules applied are the same, the two derived graphs must not be.</li>
+				</ol>
+			</p>
+			<p>
+				If we say the the graph obtained by using <span class="rule-name">r<sub>1</sub></span> is <span class="graph-name">R1</span>, 
+				and the graph obtained by using <span class="rule-name">r<sub>2</sub></span> is <span class="graph-name">R2</span>,
+				a critical pair is <span class="tech-term">joinable</span> if a graph, <span class="graph-name">U</span>,
+				can be reached from <span class="graph-name">R1</span> and <span class="graph-name">R2</span> using any of the rules any number of times.
+			</p>
+			<p>
+				Critical Pairs are <span class="tech-term">strongly joinable</span> if <span class="graph-name">U</span> contains the same nodes that have persisted (not been removed) via <em>both</em> journeys.
+			</p>
+		</section>
+		<section>
+			<h2>Graph Programming Language (GPL)</h2>
+			<p>
+				
+			</p>
 		</section>
 		<section>
 			<h2>Questions</h2>
@@ -109,6 +181,7 @@
 		
 	(r2 can be applied forever so non-terminating? Or r1 can be applied so terminating?)
 				</pre></li>
+				<li>Surely a joinable crtical pair can be parallely independent? If so, how is it a critical pair?</li>
 			</ul>
 		</section>
 	</body>
