@@ -7,10 +7,10 @@
 	</head>
 	<body>
 		<h1>MAIG Notes</h1>
-		<section>
+		<section id="reactive_agents">
 			<h2>Reactive Agents</h2>
 			<p>
-				Use simple behaviour to "simulate" intellegence
+				Use simple behaviour to "simulate" intellegence 
 				<br>
 				e.g. run away from predator and run towards friends
 			</p>
@@ -28,39 +28,321 @@
 				Rules can have a priority ordering (e.g. b1 &#8826; b2 means b1 <span class="tech-term">inhibits</span> b2 (in other words b1 will have priority over b2))
 			</p>
 			<p>
+				Rules are a set of actions that decide the behaviour of the agent
+				<br>
+				Several rules can fire simultaneously (e.g. avoid from wall while moving towards target)
+				<br>
+				Rules are defined defined as (c, a)
+				<ul>
+					<li><strong>c</strong>: condition for the rule to fire</li>
+					<li><strong>a</strong>: the action taken when c becomes true</li>
+				</ul>
+				Rule will fire when the environment is in state s &isin; S and c &sube; see(s) (The agent sees state that triggers condition) <br>
+				Rules can have a priority ordering (e.g. b1 &#8826; b2 means b1 <span class="tech-term">inhibits</span> b2 (in other words b1 will have priority over b2))
+			</p>
+			<p>
+			<strong>(Positive)</strong> Reactive agents are simple and fast <br>
+			<strong>(Positive)</strong> If the rules are well designed an agent will have near optimal performance (see Mars rover example)
+			</p>
+			<p>
 				Reactive agents are simple and fast
 				<br>
 				If the rules are well designed an agent will have near optimal performance (see Mars rover example)
 				<br>
 				Can be hard to design rules for complex environments
 			</p>
-			<section>
-				<h3>Mars rover example</h3>
-				<p>
-					<strong>Scenario</strong>: A spaceship lands on Mars. It is known that there are valuable resources on the planet, but their locations are unknown. The resources normally occur in clusters.
-				</p>
-				<p>
-					<strong>Tactic</strong>: Deploy many robots that follow a simple set of rules to find the resources and return them to the spaceship. 
-					Use a radio transmitter on the spaceship that will allow robots to <em>home</em> back to the spaceship by moving towards the source of the radio signal.
-				</p>
-				<p>
-					<strong>Rules</strong> (in priority ordering):
-					<ol>
-						<li>If detect an obstacle, change direction</li>
-						<li>If carrying sample and at storage unit, drop sample</li>
-						<li>If carrying sample, travel torwards spaceship</li>
-						<li>If detect sample, pick it up</li>
-						<li>Move randomly</li>
-					</ol>
-				</p>
-				<p>
-					<strong>Rules for agent coordination</strong> (used so that the other robots help each other):
-					<ol>
-						<li value="3">If carrying samples, drop 2 crumbs while travelling back to spaceship</li>
-						<li value="5">If detect crumb, pick up 1 crumb and travel away from the spaceship following the trail of crumbs</li>
-					</ol>
-				</p>
-			</section>
+			<strong>(Negative)</strong> Can be hard to design rules for complex environments
+			</p>
+
+			<h3>Mars rover example</h3>
+			<p>
+				<strong>Scenario</strong>: A spaceship lands on Mars. It is known that there are valuable resources on the planet, but their locations are unknown. The resources normally occur in clusters.
+				<br>
+				<br>
+				<strong>Tactic</strong>: Deploy many robots that follow a simple set of rules to find the resources and return them to the spaceship. Use a radio transmitter on the spaceship that will allow robots to <i>home</i> back to the spaceship by moving towards the source of the radio signal.
+				<br>
+				<br>
+				<strong>Rules</strong> (in priority ordering):
+				<ol>
+					<li>If detect and obstacle then change direction</li>
+					<li>If carrying sample and at storage unit then drop sample</li>
+					<li>If carrying sample then travel torwards spaceship</li>
+					<li>If detect sample then pick it up</li>
+					<li>Move randomly</li>
+				</ol>
+				<strong>Modified rules for agent coordination</strong> (used so that robots help each other):
+				<ol>
+					<li value="3">If carrying samples drop 2 crumbs while travelling back to spaceship</li>
+					<li value="5">If detect crumb then pick up 1 crumb and travel away from the spaceship following the trail of crumbs</li>
+				</ol>
+				Reactive agents are simple and fast
+				<br>
+				If the rules are well designed an agent will have near optimal performance (see Mars rover example)
+				<br>
+				Can be hard to design rules for complex environments
+			</p>
+		</section>
+
+		<section id="logic_based_agents">
+			<h2>Logic-Based Agents</h2>
+			<p>
+				<strong>(Positive)</strong> Can make decisions based on domain knowledge and predictions of other agents' moves
+				<br>
+				<strong>(Positive)</strong> Behaviour has clean semantics
+			</p>
+			<p>
+				<strong>(Negative)</strong> Can take a long time to compute
+				<br>
+				<strong>(Negative)</strong> Difficult representation for dynamic environments
+			</p>
+		</section>
+
+		<section id="layered_architectures">
+			<h2>Layered Architectures</h2>
+			<p>
+				Combines different layers / models to react to different situations / states
+			</p>
+
+			<h3>Horizontal Layering</h3>
+			<p>
+				Layers all layers (ways to react) in the same horizontal column
+				<br>
+				Sensor input goes to all layers that make a decision at the same time
+				<br>
+				A <span class="tech-term">censor</span> takes sensor input and choses best response
+			</p>
+			<p>
+				<strong>(Negative)</strong> Difficult to implement (How do you program the censor?)
+				<br>
+				<strong>(Negative)</strong> All interactions have to be considered ahead of time
+			</p>
+			<img src="horizontal_layering.png" alt="Horizontal layering">
+
+			<h3>Vertical Layering</h3>
+			<p>
+				Sensor initially only passes information to one layer 
+				<br>
+				Layer decides whether it is the best layer to make a decision. If not, passes the information to next layer.
+			</p>
+			<p>
+				<table>
+					<tr>
+						<th>One-Pass</th>
+						<th>Two-Pass</th>
+					</tr>
+					<tr>
+						<td><img src="vertical_layering_one_pass.png" alt="Horizontal layering"></td>
+						<td><img src="vertical_layering_two_pass.png" alt="Horizontal layering"></td>
+					</tr>
+					<tr>
+						<td>
+							<p>
+								Actions are bubbled up tree
+								<br>
+								Since output is at the top, all layers can make a decision
+								<br>
+								Higher layers can override decisions made by lower layers
+							</p>
+							<p>
+								<strong>(Negative?)</strong> Since all actions have to go through all layers it could be slow
+							</p>
+						</td>
+						<td>
+							<p>
+								Actions only bubble up until a decision is made
+								<br>
+								If a layer does not make a decision it passes it onto the next layer
+								<br>
+								If a layer makes a decision it gets passed back down to action output
+								<br>
+								Therefore not all layers are used for every required action
+							</p>
+							<p>
+								<strong>(Positive?)</strong> Could be faster than One-Pass
+							</p>
+							<p>
+								<strong>(Negative?)</strong> Could miss better actions in higher layers
+							</p>
+						</td>
+					</tr>
+				</table>
+			</p>
+		</section>
+		<section id="movement_principles">
+			<h2>Movement Principles</h2>
+			<p>
+				Simple rules of movement agents can follow
+				<br>
+				Cant simulate seemingly intelligent behaviour
+			</p>
+			<h3>Steering</h3>
+			<p>
+				A simple force vector is used to steer an agent towards (attracting force) or away from (repelling force) an object
+				<br>
+				Several forces can act upon an agent at once
+				<br>
+				The forces are weighted (e.g. a force to steer away from a wall might be weighted heigher than getting to a target to avoid collision)
+				<br>
+				Forces could be relative to distance to an object (e.g. as an agent gets closer to an object the repelling force gets stronger to result in a smooth turn)
+			</p>
+			<p>
+				<strong>(Positive)</strong> Generally easy to model
+			</p>
+			<p>
+				<strong>(Negative)</strong> Can be hard to get forces right
+				<br>
+				<strong>(Negative)</strong> Can be hard to model for objects that aren't circular (e.g. avoid a wall, how do you model the repelling force?) <br>
+			</p>
+
+			<h3>Flocking</h3>
+			<p>
+				Forces between the agents themselves
+				<br>
+				Can simulate lifelike behaviour of animals and people
+			</p>
+			<p>
+				Three main types of flocking:
+				<br>
+				<strong>Separation</strong>: Force to steer agent away from another agent in its neighbourhood (e.g. Prey steering away from a predator)
+				<br>
+				<strong>Alignment</strong>: Keeps agents' heading aligned with neighbouring agents (Uses a vector average of headings)
+				<br>
+				<strong>Cohesion</strong>: Attract agents to centre of other agents (e.g. birds flocking)
+			</p>
+		</section>
+
+		<section id="social_choice">
+			<h2>Social Choice</h2>
+			<p>
+				How do you aggregate choices of individual agents (e.g. voting)
+				<br>
+				Assumes:
+				<ol>
+					<li><strong>N</strong> agents</li>
+					<li><strong>O</strong> outcomes</li>
+					<li><strong>≻</strong> preference orderings ( ~ means indifference)</li>
+					<li><strong>L</strong> set of preference orderings on outcomes</li>
+				</ol>
+			</p>
+			<p>
+				Different ways of deciding a social ordering (winner)
+				<br>
+				<strong>Condorcet winner</strong>: The outcome that is ranked the highest among the most agents wins
+				<br>
+				<strong>Plurality voting</strong>: Every agent votes for their favourite. Outcome with most votes wins
+				<br>
+				<strong>Plurality with elimination</strong>: Every agent votes for their favourite. Each rount the outcome with the least votes is eliminated, then everyone votes for their favourite again. This time agents that preferred the least popular outcome will vote for their next preferred outcome. Winner is the outcome that remains.
+				<br>
+				<strong>Comulative voting</strong>: Each agent has a set number of votes they can cast. They can assigned however many of their votes to each agent as they desire (e.g. might put half their votes on first outcome, and split the rest amongst the remaining outcomes). Outcome with the most votes wins
+				<br>
+				<strong>Approval voting</strong>: Agents can give up to 1 vote to as many outcomes as they want. Winner is the outcome with the most votes
+				<br>
+				<strong>Borda voting</strong>: Agents assign points to outcomes based on their preference. Most preferred outcome recives n-1 points, next preferred n-2 and so on, where n is the number of outcomes. Outcome with the most points wins
+				<br>
+				<strong>Pairwise elimination</strong>: Voting has a schedule pairing up outcomes to be voted on. Ever round agents vote for their favourite of the two outcomes. Outcome with least votes is eliminated. Winnder is the outcome that remains at the end.
+				<br>
+			</p>
+			<p>
+				Different voting systems can cause different outcomes to win. This is referred to as <span class="tech-term">voting paradoxes</span>
+				<br>
+				A social choice function is <span class="tech-term">pareto efficient</span> if if all agents prefer outcome A to outcome B, then the voting system must rank A over B
+				<br>
+				<span class="tech-term">Weakly pareto efficient ??</span>
+				<br>
+				<span class="tech-term">Independece over irrelevant alternatives (IIA)</span>: when deciding which outcome, A or B, that is socially preferred by agents the choice function only looks at A and B. This means the comparison between A and C, or B and D will not affect the outcome of the preference ranking between A and B
+				<br>
+				<span class="tech-term">Monotonic ??</span>
+				<br>
+				A social ranking has a <span class="tech-term">dictator</span> if there is one agent whose preference ordering dictates the overall social preference ordering over the outcomes
+			</p>
+			<h3>Arrow's Theorem</h3>
+			<p>
+				If a social welfare function has 3 or more outcomes and is both Pareto efficient and IIA, then it is also dictatorial
+			</p>
+		</section>
+		<section id="ranking_systems">
+			<h2>Ranking Systems</h2>
+			<p>
+				Ranking systems are systems where the outcomes equal the agents
+				<br>
+				This means the agents are voting for each other to decide which agent is the most popular
+				<br>
+				Often used in search engines to decide pange rank
+				<br>
+				The more agents that point to another agent, the higher that agent gets ranked
+			</p>
+			<p>
+				<span class="tech-term">Strong transitivity ??</span>
+				<br>
+				<span class="tech-term">Weak transitivity ??</span>
+				<br>
+				<span class="tech-term">Ranked IIA ??</span>
+				<br>
+				<span class="tech-term">Strong Quasi-transitivity ??</span>
+			</p>
+		</section>
+		<section id="mechanism_design">
+			<h2>Mechanism Design</h2>
+		</section>
+		<section id="multi_agent_learning">
+			<h2>Multi-Agent Learning</h2>
+			<p>
+				Distinguish between <span class="tech-term">learner</span> and <span class="tech-term">teacher</span>
+				<br>
+				The learner chooses an action based on experience so far
+				<br>
+				Tit-for-tat can be seen as rudimentary learning rule
+				<br>
+				Learning aims to understand another agent's behaviour and hence the game being played
+				<br>
+				Learning is done by updating beliefs and choosing action based on new beliefs
+			</p>
+			<p>
+				Properties of learning methods:
+				<br>
+				<span class="tech-term">Realism</span>: Learning methods should mimic or seem realistic with respect to learning in real life
+				<br>
+				<span class="tech-term">Convergence</span>: The learning method should converge with some solution concept (e.g. Nash equilibrium)
+				<br>
+				<span class="tech-term">Safety</span>: A learning method that guarantees at least a maxmin payoff
+				<br>
+				<span class="tech-term">Rationality</span>: When the opponent settles on a strategy the learning method should settle on the best response
+				<br>
+				<span class="tech-term">No-regret</span>: A learning strategy that against any opponent yields no less than the payoff the agent would have obtained by playing a pure strategy
+			</p>
+			<p>
+				<span class="tech-term">Fictitious Play</span> is a learning method
+				<br>
+				It starts off with an initial guess at the strategy of the other player (e.g. {1, 1.5} denotes that player 2 will have a higher chance of playing their second option) <br>
+				The initial guess must be meaningful and cannot be 0
+				<br>
+				The agent then plays the best response to what they believe is most likely for the opponent to player
+				<br>
+				Once the agent observes what the opponent has played, the initial guess is updated by increasing the number of the option that was just played. This is normally done by increasing by 1
+				<br>
+				E.g. if the initial guess is {1, 1.5} the agent will play the best response for the opponent playing their second option. If the opponent in fact plays the first option, the guess is updated to {2, 1.5}. The agent now plays the best reposnse assuming the opponent will play their first option
+			</p>
+			<p>
+				Fictitious play is said to have reached a <span class="tech-term">Steady state</span> when the action that will be taken in the next round, is also the action that will be taken in all remaining rounds
+				<br>
+				This normally occurs when agents have the same interest (e.g. will <u>not</u> occur in for instance the matching pennies game, where one agent wants to match and the other wants to not match)
+				<br>
+				<strong>Theorem</strong>: If a single state game has a Nash equilibrium, then this will be the steady state of a repeated game with agent learning
+			</p>
 		</section>
 	</body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
