@@ -70,3 +70,7 @@ section {
 .rule-name {
 	
 }
+
+.bar {
+	text-decoration: overline;
+}
