@@ -10,46 +10,57 @@
 		<section>
 			<h2>Reactive Agents</h2>
 			<p>
-			Use simple behaviour to "simulate" intellegence <br>
-			e.g. run away from predator and run towards friends
+				Use simple behaviour to "simulate" intellegence
+				<br>
+				e.g. run away from predator and run towards friends
 			</p>
-
 			<p>
-			Rules are a set of actions that decide the behaviour of the agent <br>
-			Several rules can fire simultaneously (e.g. avoid from wall while moving towards target) <br>
-			Rules are defined defined as (c, a)
-			<ul>
-				<li><strong>c</strong>: condition for the rule to fire</li>
-				<li><strong>a</strong>: the action taken when c becomes true</li>
-			</ul>
-			Rule will fire when the environment is in state s ∈ S and c ⊆ see(s) (The agent sees state that triggers condition) <br>
-			Rules can have a priority ordering (e.g. b1 ≺ b2 means b1 <i>inhibits</i> b2 (in other words b1 will have priority over b2))
+				Rules are a set of actions that decide the behaviour of the agent
+				<br>
+				Several rules can fire simultaneously (e.g. avoid from wall while moving towards target)
+				<br>
+				Rules are defined defined as (c, a)
+				<ul>
+					<li><strong>c</strong>: condition for the rule to fire</li>
+					<li><strong>a</strong>: the action taken when c becomes true</li>
+				</ul>
+				Rule will fire when the environment is in state s &isin; S and c &sube; see(s) (The agent sees state that triggers condition) <br>
+				Rules can have a priority ordering (e.g. b1 &#8826; b2 means b1 <span class="tech-term">inhibits</span> b2 (in other words b1 will have priority over b2))
 			</p>
-
 			<p>
-			Reactive agents are simple and fast <br>
-			If the rules are well designed an agent will have near optimal performance (see Mars rover example)<br>
-			Can be hard to design rules for complex environments
+				Reactive agents are simple and fast
+				<br>
+				If the rules are well designed an agent will have near optimal performance (see Mars rover example)
+				<br>
+				Can be hard to design rules for complex environments
 			</p>
-
-			<h4>Mars rover example</h4>
-			<strong>Scenario</strong>: A spaceship lands on Mars. It is known that there are valuable resources on the planet, but their locations are unknown. The resources normally occur in clusters. <br>
-			<br>
-			<strong>Tactic</strong>: Deploy many robots that follow a simple set of rules to find the resources and return them to the spaceship. Use a radio transmitter on the spaceship that will allow robots to <i>home</i> back to the spaceship by moving towards the source of the radio signal. <br>
-			<br>
-			<strong>Rules</strong> (in priority ordering):
-			<ol>
-				<li>If detect and obstacle then change direction</li>
-				<li>If carrying sample and at storage unit then drop sample</li>
-				<li>If carrying sample then travel torwards spaceship</li>
-				<li>If detect sample then pick it up</li>
-				<li>Move randomly</li>
-			</ol>
-			<strong>Rules for agent coordination</strong> (used so that the other robots help each other):
-			<ol>
-				<li value="3">If carrying samples drop 2 crumbs while travelling back to spaceship</li>
-				<li value="5">If detect crumb then pick up 1 crumb and travel away from the spaceship following the trail of crumbs</li>
-			</ol>
+			<section>
+				<h3>Mars rover example</h3>
+				<p>
+					<strong>Scenario</strong>: A spaceship lands on Mars. It is known that there are valuable resources on the planet, but their locations are unknown. The resources normally occur in clusters.
+				</p>
+				<p>
+					<strong>Tactic</strong>: Deploy many robots that follow a simple set of rules to find the resources and return them to the spaceship. 
+					Use a radio transmitter on the spaceship that will allow robots to <em>home</em> back to the spaceship by moving towards the source of the radio signal.
+				</p>
+				<p>
+					<strong>Rules</strong> (in priority ordering):
+					<ol>
+						<li>If detect an obstacle, change direction</li>
+						<li>If carrying sample and at storage unit, drop sample</li>
+						<li>If carrying sample, travel torwards spaceship</li>
+						<li>If detect sample, pick it up</li>
+						<li>Move randomly</li>
+					</ol>
+				</p>
+				<p>
+					<strong>Rules for agent coordination</strong> (used so that the other robots help each other):
+					<ol>
+						<li value="3">If carrying samples, drop 2 crumbs while travelling back to spaceship</li>
+						<li value="5">If detect crumb, pick up 1 crumb and travel away from the spaceship following the trail of crumbs</li>
+					</ol>
+				</p>
+			</section>
 		</section>
 	</body>
 </html>
