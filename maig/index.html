@@ -235,7 +235,24 @@
 		</section>
 		<section id=negotiation>
 			<h2>Negotiation</h2>
-		
+			<h3>Cooperative single-issue</h3>
+			<p>
+				The outcome is decided based on the highest combination (argmax) of the agents ultilies (x) based on the disagreement utility (n)
+				<br>
+				argmax(xa - na)(xb - nb)
+ 			</p>
+			<h3>Non-cooperative single-issue</h3>
+			<p>
+				Assume both players look into the future up until the deadline
+				<br>
+				The player that makes the last decision will dictate the outcome by using the idea that he has the final say. This means that the last player to make a proposal, will take everything that is left knowing that the other player has to accept due to the deadline
+				<br>
+				Using backwards propegation, the other player (i.e. the non final player) will match the final players utility in the second to last step, taking the rest for themselves (e.g. if player b takes 0.5 in the final step, player a will give b 0.5 in the second last step and take whatever is left on top of 0.5) 
+				<br>
+				This continues until step 1, where the first player is able to produce an offer that is optimal for himself and he knows the other player will accept as the second player would offer this utility for themselves in the next step
+			</p>
+			<h3>Cooperative multi-issue</h3>
+			<h3>Non-cooperative multi-issue</h3>
 		</section>
 		<section id="social_choice">
 			<h2>Social Choice</h2>
@@ -269,21 +286,28 @@
 				<br>
 			</p>
 			<p>
+				<span class="tech-term">Social welfare</span> concerns all preferences (e.g. A > B and B > C)
+				<br>
+				<span class="tech-term">Social choice</span> concerns only the winner (i.e. the highest ranked outcome)
+			</p>
+			<p>
 				Different voting systems can cause different outcomes to win. This is referred to as <span class="tech-term">voting paradoxes</span>
 				<br>
 				A social choice function is <span class="tech-term">pareto efficient</span> if if all agents prefer outcome A to outcome B, then the voting system must rank A over B
 				<br>
-				<span class="tech-term">Weakly pareto efficient ??</span>
+				<span class="tech-term">Weakly pareto efficient</span> same as pareto effciency, but only concerned with the winner (i.e. the outcome ranked highest in the social ranking)
 				<br>
 				<span class="tech-term">Independece over irrelevant alternatives (IIA)</span>: when deciding which outcome, A or B, that is socially preferred by agents the choice function only looks at A and B. This means the comparison between A and C, or B and D will not affect the outcome of the preference ranking between A and B
 				<br>
-				<span class="tech-term">Monotonic ??</span>
+				<span class="tech-term">Monotonicity</span> is if in one ordering over outcomes A wins over B, then in another ordering of outcomes A is either ranked higher than or equal to B in the rankings, then A should win
 				<br>
 				A social ranking has a <span class="tech-term">dictator</span> if there is one agent whose preference ordering dictates the overall social preference ordering over the outcomes
 			</p>
 			<h3>Arrow's Theorem</h3>
 			<p>
 				If a social welfare function has 3 or more outcomes and is both Pareto efficient and IIA, then it is also dictatorial
+				<br>
+				If something is weakly pareto efficient and monotonic it is a dictatorship (Don't know if this is actually Arrow's theorem, but similar to the actual one)
 			</p>
 		</section>
 		<section id="ranking_systems">
@@ -298,11 +322,11 @@
 				The more agents that point to another agent, the higher that agent gets ranked
 			</p>
 			<p>
-				<span class="tech-term">Strong transitivity ??</span>
+				<span class="tech-term">Strong transitivity</span> is not concerned with how many outcomes a certain agent has voted for 
 				<br>
-				<span class="tech-term">Weak transitivity ??</span>
+				<span class="tech-term">Weak transitivity</span> is concerned with how many outcomes an agent has voted for (e.g. if an agent has voted for almost every outcome, they are indecisive and their opinion is worth less)
 				<br>
-				<span class="tech-term">Ranked IIA ??</span>
+				<span class="tech-term">Ranked IIA</span> only the votes places by agents and their transitive weighting should affect the outcome (e.g. on websites, .com websites should not be weighted higher than a .net website)
 				<br>
 				<span class="tech-term">Strong Quasi-transitivity ??</span>
 			</p>
