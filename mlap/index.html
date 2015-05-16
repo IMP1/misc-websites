@@ -3,7 +3,7 @@
 	<head>
 		<title>MLAP Revision Notes</title>
 		<meta charset="UTF-8">
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="../grat/style.css">
 	</head>
 	<body>
 		<h1>MLAP Notes</h1>
@@ -11,12 +11,27 @@
 			<h2>Regression</h2>
 			<section>
 				<h3>Linear Regression</h3>
+				<section>
+					<h4>Error</h4>
+					The best fit of the equation is the one with the least error.
+					<section>
+						<span class="tech-term">Absolute Loss Error</span> = 						| y - f(x) |
+						<br>
+						<span class="tech-term">Squared Loss</span> = 						(y - f(x))<sup>2</sup>
+						<br>
+						<span class="tech-term">&epsilon;-sensitive Loss</span> = 						max(|y - f(x)| - &epsilon;, 0).
+						<br>
+						This only considers errors greater than &epsilon;.
+					</section>
+					Generally least squares is used with linear regression.
+				</section>
 			</section>
 			<section>
 				<h3>Logistic Regression</h3>
 			</section>
 			<section>
 				<h3>Regularisation</h3>
+				
 			</section>
 		</section>
 		<section>
