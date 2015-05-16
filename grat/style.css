@@ -18,13 +18,33 @@ body {
 	font-size: 0.9rem;
 }
 
+img {
+	max-width: 80%;
+	margin: 10px auto;
+	display:block;
+}
+
+table {
+	width: 100%;
+}
+
+table th {
+	text-align: center;
+}
+
+table td {
+	padding: 0 20px;
+}
+
 sub, sup {
 	font-size: 0.8em;
 }
+
 sup { 
 	position: relative;
 	top: 0.2em;
 }
+
 sub { 
 	position: relative;
 	bottom: 0.2em;
