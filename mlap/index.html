@@ -15,11 +15,11 @@
 					<h4>Error</h4>
 					The best fit of the equation is the one with the least error.
 					<section>
-						<span class="tech-term">Absolute Loss Error</span> = 						| y - f(x) |
+						<span class="tech-term">Absolute Loss Error</span> = | y - f(x) |
 						<br>
-						<span class="tech-term">Squared Loss</span> = 						(y - f(x))<sup>2</sup>
+						<span class="tech-term">Squared Loss</span> = (y - f(x))<sup>2</sup>
 						<br>
-						<span class="tech-term">&epsilon;-sensitive Loss</span> = 						max(|y - f(x)| - &epsilon;, 0).
+						<span class="tech-term">&epsilon;-sensitive Loss</span> = max(|y - f(x)| - &epsilon;, 0).
 						<br>
 						This only considers errors greater than &epsilon;.
 					</section>
@@ -28,10 +28,30 @@
 			</section>
 			<section>
 				<h3>Logistic Regression</h3>
+				<p>
+					sigmoid(x) = 1 / (1 + exp(-x))
+					<br>
+					The sigmoid function gives a smoother differentiable soft decision boundary, unlike the step function, which gives a hard decision boundary.
+				</p>
 			</section>
 			<section>
 				<h3>Regularisation</h3>
-				
+				<p>
+					arg<sub>&theta;</sub>max L(&theta;, X) = arg<sub>&theta;</sub>max log(L(&theta;, X)) because log is monotonic for positive values.
+				</p>
+				<p>
+					Model<sub>MAP</sub>(Data) = arg<sub>Model</sub>max p(Data|Model)p(Model)
+					<br>
+					= arg<sub>&theta;</sub>max[ &Pi; p(Y = c|X, &theta;) ] e <sup>[-(1-&lambda;)/&lambda;] &Sigma;|&theta;|<sup>p</sup></sup>
+				</p>
+				<section>
+					<h4>Lasso Regularisation</h4>
+					p = 1
+				</section>
+				<section>
+					<h4>Ridge Regularisation</h4>
+					p = 2
+				</section>
 			</section>
 		</section>
 		<section>
